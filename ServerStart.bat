@@ -469,7 +469,7 @@ ECHO Checking for forge/minecraft binaries...
 ECHO INFO: Checking for forge/minecraft binaries... 1>>  "%~dp0logs\serverstart.log" 2>&1
 
 REM Check if forge is already installed
-IF NOT EXIST "%~dp0*forge*%MC_SERVER_FORGEVER%*universal*.jar" (
+IF NOT EXIST "%~dp0*forge*%MC_SERVER_FORGEVER%*.jar" (
 	ECHO FORGE %MC_SERVER_FORGEVER% binary not found, re-installing...
 	ECHO INFO: FORGE %MC_SERVER_FORGEVER% not found, re-installing... 1>>  "%~dp0logs\serverstart.log" 2>&1
 	GOTO INSTALLSTART
@@ -519,10 +519,10 @@ REM	)
 )
 
 REM set absolute paths for binary JARs
-(FOR /f "usebackq tokens=* delims=*" %%x in (`dir ^"*forge*%MC_SERVER_FORGEVER%*universal*.jar^" /B /O:-D`) DO SET "MC_SERVER_FORGE_JAR=%%x" & GOTO CHECKFILES1) 1>> "%~dp0logs\serverstart.log" 2>&1
+(FOR /f "usebackq tokens=* delims=*" %%x in (`dir ^"*forge*%MC_SERVER_FORGEVER%*.jar^" /B /O:-D`) DO SET "MC_SERVER_FORGE_JAR=%%x" & GOTO CHECKFILES1) 1>> "%~dp0logs\serverstart.log" 2>&1
 
 :CHECKFILES1
-(FOR /f "usebackq tokens=* delims=*" %%x in (`dir ^"*forge*%MC_SERVER_FORGEVER%*universal*.jar^" /B /O:-D`) DO SET "MC_SERVER_SPONGE_BOOT=%%x" & GOTO CHECKFILES2) 1>> "%~dp0logs\serverstart.log" 2>&1
+(FOR /f "usebackq tokens=* delims=*" %%x in (`dir ^"*forge*%MC_SERVER_FORGEVER%*.jar^" /B /O:-D`) DO SET "MC_SERVER_SPONGE_BOOT=%%x" & GOTO CHECKFILES2) 1>> "%~dp0logs\serverstart.log" 2>&1
 
 :CHECKFILES2
 REM Delete duplicate binary JARs
@@ -530,7 +530,7 @@ rem ECHO DEBUG: MC_SERVER_SPONGE_BOOT=%MC_SERVER_SPONGE_BOOT% 1>> "%~dp0logs\ser
 ECHO DEBUG: MC_SERVER_FORGE_JAR=%MC_SERVER_FORGE_JAR% 1>> "%~dp0logs\serverstart.log" 2>&1
 rem ATTRIB +R "%MC_SERVER_SPONGE_BOOT%"  1>> "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No Sponge Jar present to read-only 1>> "%~dp0logs\serverstart.log" 2>&1
 ATTRIB +R "%MC_SERVER_FORGE_JAR%"  1>> "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No Forge Jar present to read-only 1>> "%~dp0logs\serverstart.log" 2>&1
-DEL "%~dp0*forge*universal*.jar" /A:-R  1>> "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No Sponge Jars present to delete 1>> "%~dp0logs\serverstart.log" 2>&1
+DEL "%~dp0*forge*.jar" /A:-R  1>> "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No Sponge Jars present to delete 1>> "%~dp0logs\serverstart.log" 2>&1
 REM DEL "%~dp0*sponge*bootstrap*.jar" /A:-R  1>> "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No Forge Jars present to delete 1>> "%~dp0logs\serverstart.log" 2>&1
 rem ATTRIB -R "%MC_SERVER_SPONGE_BOOT%"  1>> "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No Sponge Jar present to UN-read-only 1>> "%~dp0logs\serverstart.log" 2>&1
 ATTRIB -R "%MC_SERVER_FORGE_JAR%"  1>> "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No Forge Jar present to UN-read-only 1>> "%~dp0logs\serverstart.log" 2>&1
@@ -621,7 +621,7 @@ IF %ERRORLEVEL% EQU 0 (
 
 :FORGEFILEPREP
 DEL /F /Q "%~dp0*forge*.html"  1>> "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No forge-index to delete 1>>  "%~dp0logs\serverstart.log" 2>&1
-DEL /F /Q "%~dp0*forge*universal*"  1>> "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No forge-universal to delete 1>>  "%~dp0logs\serverstart.log" 2>&1
+DEL /F /Q "%~dp0*forge*"  1>> "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No forge to delete 1>>  "%~dp0logs\serverstart.log" 2>&1
 DEL /F /Q "%~dp0*tmp-forgeinstaller.jar" 1>> "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No forge-installer to delete 1>> "%~dp0logs\serverstart.log" 2>&1
 DEL /F /Q "%~dp0*minecraft*server*%MC_SERVER_MCVER%*.jar" 1>> "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No minecraft binary to delete 1>> "%~dp0logs\serverstart.log" 2>&1
 RMDIR /S /Q "%~dp0libraries" 1>>  "%~dp0logs\serverstart.log" 2>&1 || ECHO INFO: No Libraries folder to delete 1>> "%~dp0logs\serverstart.log" 2>&1

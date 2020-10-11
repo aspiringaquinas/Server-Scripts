@@ -378,7 +378,7 @@ while $run ; do
         echo "Required files not found, need to install Forge"
         install_server
     fi
-    forge=$(ls forge*"$MC_SERVER_MCVER"*"$MC_SERVER_FORGEVER"*universal.jar 2>>logs/serverstart.log)
+    forge=$(ls forge*"$MC_SERVER_MCVER"*"$MC_SERVER_FORGEVER"\.jar 2>>logs/serverstart.log)
     if [[ $? != 0 ]] ; then
         echo "WARN: no forge jar for MCVER: $MC_SERVER_MCVER and FORGEVER: $MC_SERVER_FORGEVER found"  >>logs/serverstart.log
         echo "Required files not found, need to install Forge"
@@ -427,6 +427,7 @@ while $run ; do
         echo "JMX Enabled on port ${MC_SERVER_JMX_PORT}"
     fi
     echo "INFO: Starting Server at $(date -u +%Y-%m-%d_%H:%M:%S)" >>logs/serverstart.log 2>&1
+    echo "DEVUGL Running:  $MC_SERVER_JAVA -Xmx$MC_SERVER_MAX_RAM $MC_SERVER_ARGS -jar $MC_SERVER_FORGE_JAR $MC_SERVER_GAME_ARGS" >>logs/serverstart.log 2>&1 
     "$MC_SERVER_JAVA" -Xmx"$MC_SERVER_MAX_RAM" "$MC_SERVER_ARGS" -jar "$MC_SERVER_FORGE_JAR" "$MC_SERVER_GAME_ARGS"
     b=$?
     b=1
